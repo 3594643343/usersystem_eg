@@ -1,0 +1,17 @@
+server:
+  port: 8090
+
+datasource:
+  driver-class-name: com.mysql.cj.jdbc.Driver
+  host: localhost
+  port: 3306
+  database: todo_server
+  username: root
+  password: hyy031216
+
+redis:
+  host: localhost
+  port: 6379
+  database: 0
+#  account:
+#  password:
