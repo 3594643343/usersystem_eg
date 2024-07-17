@@ -3,6 +3,7 @@ package org.example.user_system.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.example.user_system.dto.*;
 import org.example.user_system.entity.User;
+import org.example.user_system.result.PageResult;
 import org.example.user_system.vo.LoginVo;
 import org.example.user_system.vo.UserInfoVo;
 import org.example.user_system.vo.UserUpdateInfoVo;
@@ -65,5 +66,10 @@ public interface UserService extends IService<User> {
      * @param userQueryDto 查询条件
      * @return PageResult<UserInfoVo>
      */
-    List<UserInfoVo> query(UserQueryDto userQueryDto);
+    PageResult<UserInfoVo> query(UserQueryDto userQueryDto);
+
+    /**
+     * 用户登出
+     */
+    void logout();
 }

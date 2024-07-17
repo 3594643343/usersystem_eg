@@ -20,16 +20,32 @@ spring:
       database: ${redis.database}
 #      account: ${redis.account}
 #      password: ${redis.password}
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:sql/schema.sql
+      data-locations: classpath:sql/data.sql
+
+jwt:
+  user-token-name: token
+  secret-key: secret-key
+  ttl: 1800
+
+redis:
+  enabled: false
 
 logging:
   level:
-    org.example.test.mapper: debug
+    org.example.user_system.mapper: trace
+  pattern:
+    dateformat: "yyyy:MM:dd HH:mm:ss.SSS"
+#    console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
 
 mybatis-plus:
   global-config:
     banner: false # 不打印 logo
     db-config:
-      id-type: ASSIGN_ID # 全局默认主键类型。 自动分配id
+      id-type: AUTO # 全局默认主键类型。 自动分配id
       logic-delete-field: deleted # 逻辑删除字段
       logic-delete-value: 0 # 已删除字段值为 0
       logic-not-delete-value:  1 # 未删除字段值为 1
@@ -42,3 +58,20 @@ mybatis-plus:
     # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
 
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: org.example.user_system.controller
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn

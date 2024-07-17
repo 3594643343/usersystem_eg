@@ -1,18 +1,20 @@
 package org.example.user_system.context;
 
+import org.example.user_system.dto.CurrentUserDto;
+
 public class BaseContext {
 
-    public static ThreadLocal<Integer> threadLocal = new ThreadLocal<>();
+    public static ThreadLocal<CurrentUserDto> threadLocal = new ThreadLocal<>();
 
-    public static void setCurrentId(Integer id) {
-        threadLocal.set(id);
+    public static void setCurrentUser(CurrentUserDto currentUserDto) {
+        threadLocal.set(currentUserDto);
     }
 
-    public static Integer getCurrentId() {
+    public static CurrentUserDto getCurrentUser() {
         return threadLocal.get();
     }
 
-    public static void removeCurrentId() {
+    public static void removeCurrentUser() {
         threadLocal.remove();
     }
 

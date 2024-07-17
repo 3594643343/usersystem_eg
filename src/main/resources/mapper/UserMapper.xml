@@ -11,8 +11,8 @@
             <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
             <result property="gender" column="gender" jdbcType="INTEGER"/>
             <result property="role" column="role" jdbcType="INTEGER"/>
-            <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="update_time" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
             <result property="deleted" column="deleted" jdbcType="INTEGER"/>
     </resultMap>
 

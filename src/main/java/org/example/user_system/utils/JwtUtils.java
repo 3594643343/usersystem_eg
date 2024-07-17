@@ -17,13 +17,14 @@ public class JwtUtils {
      * @param userId 用户id
      * @return String
      */
-    public static String crateJwt(JwtProperties jwtProperties, Integer userId) {
+    public static String crateJwt(JwtProperties jwtProperties, Integer userId, Integer userRole) {
         Map<String, Object> claims = new HashMap<>();
 
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime exp = now.plusSeconds(jwtProperties.getTtl());
 
         claims.put("userId", userId);
+        claims.put("userRole", userRole);
         claims.put(JWTPayload.ISSUED_AT, now); // 签发时间
         claims.put(JWTPayload.NOT_BEFORE, now); // 生效时间
         claims.put(JWTPayload.EXPIRES_AT, exp); // 过期时间

@@ -11,6 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserUpdateInfoDto {
     /**
+     * id
+     */
+    private Integer id;
+    /**
      * 账号
      */
     private String account;

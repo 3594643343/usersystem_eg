@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 @Slf4j
-@RestControllerAdvice("org.example.test.controller") // 指定拦截请求的范围，防止拦截swagger网页
+@RestControllerAdvice("org.example.user_system.controller") // 指定拦截请求的范围，防止拦截swagger网页
 // @RestControllerAdvice(assignableTypes = BaseController.class)
 public class ResponseAdvice implements ResponseBodyAdvice<Object> {
 

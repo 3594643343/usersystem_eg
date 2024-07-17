@@ -5,20 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class PageResult<T> implements Serializable {
-    /**
-     * 总数数据大小
-     */
+@AllArgsConstructor
+public class PageResult<T> {
     private Integer total;
-    /**
-     * 获取到的数据
-     */
-    private List<T> rows;
+
+    private List<T> records;
 }

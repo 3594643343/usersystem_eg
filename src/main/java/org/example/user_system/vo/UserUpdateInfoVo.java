@@ -11,6 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserUpdateInfoVo {
     /**
+     * id
+     */
+    private Integer id;
+    /**
      * 账号
      */
     private String account;

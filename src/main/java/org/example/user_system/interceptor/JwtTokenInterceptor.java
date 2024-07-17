@@ -9,7 +9,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.example.user_system.context.BaseContext;
+import org.example.user_system.dto.CurrentUserDto;
 import org.example.user_system.properties.JwtProperties;
+import org.example.user_system.properties.RedisProp;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -24,6 +27,12 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
 
     @Resource
     private JwtProperties jwtProperties;
+
+    @Resource
+    private RedisProp redisProp;
+
+    @Resource
+    private RedisTemplate<String, Object> redisTemplate;
 
     /**
      * 校验jwt
@@ -45,7 +54,7 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
 
         log.info("JWT Token: {}", token);
 
-        if (ObjectUtil.isNotEmpty(token) ||
+        if (ObjectUtil.isEmpty(token) ||
                 !JWTUtil.verify(token, jwtProperties.getSecretKey().getBytes())) {
             // 不通过，响应401状态码
             response.setStatus(401);
@@ -54,11 +63,20 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
 
         JWT jwt = JWTUtil.parseToken(token);
 
-        Integer userId = Integer.valueOf(jwt.getHeader("userId").toString());
-        log.info("当前用户 userId: {}", userId);
+        Integer userId = Integer.valueOf(jwt.getPayload("userId").toString());
+        Integer userRole = Integer.valueOf(jwt.getPayload("userRole").toString());
+
+        if(redisProp.getEnabled() && redisTemplate.opsForValue().get(String.valueOf(userId)) == null) {
+            response.setStatus(401);
+            return false;
+        }
+
+        CurrentUserDto currentUserDto = CurrentUserDto.builder().userId(userId).userRole(userRole).build();
+
+        log.info("当前用户 currentUserDto: {}", currentUserDto);
 
         // 创建线程局部变量
-        BaseContext.setCurrentId(userId);
+        BaseContext.setCurrentUser(currentUserDto);
 
         return true;
     }
@@ -75,6 +93,6 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
 
-        BaseContext.removeCurrentId();
+        BaseContext.removeCurrentUser();
     }
 }

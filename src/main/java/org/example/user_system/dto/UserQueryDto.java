@@ -13,11 +13,11 @@ public class UserQueryDto {
     /**
      * 页码
      */
-    private Integer page = 1;
+    private Integer page;
     /**
      * 页大小
      */
-    private Integer size = 10;
+    private Integer size;
     /**
      * 模糊匹配账号
      */
