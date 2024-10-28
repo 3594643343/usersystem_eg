@@ -72,11 +72,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 //                .one();
 
         String password = SecureUtils.EncryptedPassword(loginDto.getPassword());
+        //String password = loginDto.getPassword();
+
         if (ObjectUtil.isEmpty(user)) {
             throw new RuntimeException("账号不存在");
         }
         if(!password.equals(user.getPassword())){
-            throw new RuntimeException("密码错误");
+            throw new RuntimeException("密码错误 "+password+" "+user.getPassword());
         }
         if (user.getRole() > 1 ) {
             throw new RuntimeException("您没有权限");

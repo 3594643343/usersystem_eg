@@ -22,7 +22,7 @@ spring:
 #      password: ${redis.password}
   sql:
     init:
-      mode: always
+      mode: never
       schema-locations: classpath:sql/schema.sql
       data-locations: classpath:sql/data.sql
 
@@ -32,7 +32,7 @@ jwt:
   ttl: 1800
 
 redis:
-  enabled: false
+  enabled: true
 
 logging:
   level:

@@ -5,9 +5,9 @@ datasource:
   driver-class-name: com.mysql.cj.jdbc.Driver
   host: localhost
   port: 3306
-  database: user_system
+  database: 架构_name
   username: root
-  password: hyy031216
+  password: mysql94
 
 redis:
   host: localhost
